@@ -18,9 +18,22 @@ type ThemeStore = {
   stop: () => void
 }
 
-const palette: Record<ThemeMode, { background: string; foreground: string }> = {
-  light: { background: '#ffffff', foreground: '#171717' },
-  dark: { background: '#0a0a0a', foreground: '#ededed' },
+const palette: Record<
+  ThemeMode,
+  { background: string; foreground: string; scrollbarTrack: string; scrollbarThumb: string }
+> = {
+  light: {
+    background: '#f8f5ff',
+    foreground: '#1f0a3d',
+    scrollbarTrack: '#ede9fe',
+    scrollbarThumb: '#8b5cf6',
+  },
+  dark: {
+    background: '#120a2a',
+    foreground: '#ede9fe',
+    scrollbarTrack: '#1f103f',
+    scrollbarThumb: '#a855f7',
+  },
 }
 
 function getPreferredTheme(): ThemeMode {
@@ -51,6 +64,8 @@ function applyTheme(mode: ThemeMode) {
 
   root.style.setProperty('--background', paletteEntry.background)
   root.style.setProperty('--foreground', paletteEntry.foreground)
+  root.style.setProperty('--scrollbar-track', paletteEntry.scrollbarTrack)
+  root.style.setProperty('--scrollbar-thumb', paletteEntry.scrollbarThumb)
 }
 
 function createThemeStore(): ThemeStore {
