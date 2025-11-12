@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useAppStore } from '@/stores'
 const MODELS = [
   { label: 'GPT-3.5', value: 'gpt-3.5', description: '快速响应，性价比高' },
   { label: 'GPT-4', value: 'gpt-4', description: '更强的推理与创意能力' },
@@ -7,10 +7,9 @@ const MODELS = [
 ]
 
 export default function ModalSelect() {
-  const [selectedModel, setSelectedModel] = useState(MODELS[0].value)
-
+  const { currentModel, setCurrentModel } = useAppStore()
   const handleSelect = (value: string) => {
-    setSelectedModel(value)
+    setCurrentModel(value)
     // 可以在此通知父级或写入 store
   }
 
@@ -32,10 +31,10 @@ export default function ModalSelect() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         {MODELS.map((model) => {
-          const isActive = selectedModel === model.value
+          const isActive = currentModel === model.value as string
           return (
             <button
-              key={model.value}
+              key={model.value} 
               type="button"
               onClick={() => handleSelect(model.value)}
               className={[

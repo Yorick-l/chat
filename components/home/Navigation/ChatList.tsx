@@ -28,6 +28,7 @@ export default function ChatList() {
             updatedAt: new Date(new Date().setDate(new Date().getDate() - 6 * 30))
         },
     ])
+    
     const [selectedChat, setSelectedChat] = useState<Chat | null>(null)
     console.log('===', selectedChat)
     const groupedChats = useMemo(() => groupChatsByTime(chats), [chats])
