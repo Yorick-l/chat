@@ -6,11 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
+    "@azure/openai": "^2.0.0",
+    "@prisma/adapter-better-sqlite3": "^6.19.0",
     "@prisma/client": "^6.19.0",
     "@prisma/extension-accelerate": "^2.0.2",
+    "better-sqlite3": "^12.4.1",
     "dotenv": "^17.2.3",
     "next": "16.0.1",
     "react": "19.2.0",
@@ -25,6 +31,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

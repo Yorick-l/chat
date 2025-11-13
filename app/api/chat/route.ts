@@ -2,18 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { ChatRequest } from "@/types/chat";
 import { sleep } from "@/lib/utils";
 export async function POST(request: NextRequest) {
-  const { message } = (await request.json()) as ChatRequest;
-  console.log(message);
+  const { messages, model } = (await request.json()) as ChatRequest;
+  console.log(messages, model);
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      for (let i = 0; i < message.length; i++) {
-        await sleep(100);
-        controller.enqueue(encoder.encode(message[i]));
+      const messageText = messages[messages.length - 1].content
+      for (let i = 0; i < messageText.length; i++) {
+          await sleep(100)
+          controller.enqueue(encoder.encode(messageText[i]))
       }
-      controller.close();
-    },
+      controller.close()
+  }
   });
 
   return new Response(stream);

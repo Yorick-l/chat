@@ -5,7 +5,7 @@ import Markdown from '@/components/common/Markdown'
 import { useAppStore } from '@/stores'
 
 export default function MessageList() {
-    const { messageList, streamId } = useAppStore()
+    const { messageList, streamId, setMessageList, selectedChat } = useAppStore()
     const scrollRef = useRef<HTMLDivElement>(null)
 
     // 自动滚动到底部（当有新消息或流式更新时）
@@ -14,6 +14,22 @@ export default function MessageList() {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight
         }
     }, [messageList, streamId])
+
+
+    const getData = async (chatId: string) => {
+        const response = await fetch(`/api/message/list?chatId=${chatId}`)
+
+        if (!response.ok) {
+            console.error('Failed to get chat list')
+            return
+        }
+        const { data } = await response.json()
+        setMessageList(data)
+    }
+
+    useEffect(()=>{
+        selectedChat && getData(selectedChat.id)
+    },[selectedChat])
 
     return (
         <div 

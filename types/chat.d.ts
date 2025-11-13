@@ -1,19 +1,19 @@
 export interface Chat { 
     id: string
     title: string
-    messages: Message[]
     createdAt: Date
     updatedAt: Date
+    messages: Message[]
 }
 
 export interface Message {
     id: string
     content: string
     role: 'user' | 'assistant'
-    createdAt: Date
+    chatId: string
 }
 
 export interface ChatRequest {
-    message: string
-    currentModel: string
+    messages: Message[]
+    model: string
 }
